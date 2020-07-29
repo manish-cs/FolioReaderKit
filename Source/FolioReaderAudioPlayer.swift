@@ -155,7 +155,7 @@ open class FolioReaderAudioPlayer: NSObject {
         completion?()
     }
 
-    @objc func pause() {
+    @objc func pause() -> MPRemoteCommandHandlerStatus {
         playing = false
 
         if !isTextToSpeech {
@@ -167,19 +167,21 @@ open class FolioReaderAudioPlayer: NSObject {
                 synthesizer.pauseSpeaking(at: .word)
             }
         }
+	return .success
     }
 
-    @objc func togglePlay() {
-        isPlaying() ? pause() : play()
+    @objc func togglePlay() -> MPRemoteCommandHandlerStatus {
+        return isPlaying() ? pause() : play()
     }
 
-    @objc func play() {
+    @objc func play() -> MPRemoteCommandHandlerStatus {
         if book.hasAudio {
-            guard let currentPage = self.folioReader.readerCenter?.currentPage else { return }
+            guard let currentPage = self.folioReader.readerCenter?.currentPage else { return .commandFailed }
             currentPage.webView?.js("playAudio()")
         } else {
             self.readCurrentSentence()
         }
+	return .success
     }
 
     func isPlaying() -> Bool {
