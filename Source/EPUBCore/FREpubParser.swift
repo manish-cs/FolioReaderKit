@@ -463,6 +463,9 @@ class FREpubParser: NSObject, SSZipArchiveDelegate {
 
             if book.resources.containsById(idref) {
                 guard let resource = book.resources.findById(idref) else { continue }
+                if resource.id == "cover" {
+                    continue
+                }
                 spine.spineReferences.append(Spine(resource: resource, linear: linear))
             }
         }
