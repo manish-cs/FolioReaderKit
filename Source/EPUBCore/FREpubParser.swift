@@ -182,12 +182,12 @@ class FREpubParser: NSObject, SSZipArchiveDelegate {
         }
 
         // Read the cover image
-        let coverImageId = book.metadata.find(byName: "cover")?.content
+        /*let coverImageId = book.metadata.find(byName: "cover")?.content
         if let coverImageId = coverImageId, let coverResource = book.resources.findById(coverImageId) {
             book.coverImage = coverResource
         } else if let coverResource = book.resources.findByProperty("cover-image") {
             book.coverImage = coverResource
-        }
+        }*/
 
         // Specific TOC for ePub 2 and 3
         // Get the first resource with the NCX mediatype
